@@ -41,34 +41,26 @@ class FileNator
 
 class JSONator 
 {
-	function __construct($userFilePath, $reserveationFilePath)
+	function __construct($filePath, $schema)
 	{
-		$this->userFilePath = $userFilePath;
-		$this->resvationFilePath = $reserveationFilePath;
-
-		$this->fileNator = new FileNator($userFilePath);
-
-		$this->userJSON = $this->fileNator->getJSONfromFile();
-		$this->fileNator->updateFilePath($reserveationFilePath);
-		$this->reservationJSON = $this->fileNator->getJSONfromFile();
+		$this->filePath = $filePath;
+		$this->fileNator = new FileNator($filePath);
+		$this->JSON = $this->fileNator->getJSONfromFile();
+		$this->schema = $schema;
 	}
     public function read($type)
     {
-    	$json = $this->setJSONFile($type);
     	return $json;
     }
     public function write($type, $record)
     {
-    	$json = $this->setJSONFile($type);
-    	echo $this->validateJSON($type, $json) ? 'true' : 'false';
+    	echo $this->validateJSON($type, $this->JSON) ? 'true' : 'false';
     }
     public function update($type, $id, $record)
     {
-    	$json = $this->setJSONFile($type);
     }
     public function delete($type, $id)
     {
-    	$json = $this->setJSONFile($type);
     }
     public function printSomeShit()
     {
@@ -76,9 +68,7 @@ class JSONator
     }
     public function fetchRecordById($type, $id)
 	{
-		$json = $this->setJSONFile($type);
-
-		foreach ($json as $key => $value) 
+		foreach ($this->JSON as $key => $value) 
 		{
 			if($id == $value['id'])
 			{
@@ -90,18 +80,10 @@ class JSONator
 
 	public function validateJSON($type, $json)
 	{
-		$json = $json[0];
-		$schema;
+		$json = $json[0]; //TODO: CHANGE THIS LINE TO ACCOMODATE REAL FLOW
 		$valid = true;
-		if($type == 'u')
-    	{
-    		$schema = User::jsonSchema();
-    	}
-    	else if($type == 'r')
-    	{
-    		$schema = Reservation::jsonSchema();
-    	}
-
+    	$schema = $this->schema;
+    	var_dump($json);
 		if(is_array($json))
 		{
 			foreach($json as $key => $val)
@@ -118,37 +100,25 @@ class JSONator
 					$valid = false;
 					break;
 				}
-
 			}
-
-
 		}
-
     	return $valid;
 	}
-
-    private function setJSONFile($type)
-    {
-    	$json;
-    	if($type == 'u')
-    	{
-    		$json = $this->userJSON;
-    		$this->fileNator->updateFilePath($this->userFilePath);
-    	}
-    	else if($type == 'r')
-    	{
-    		$json = $this->reservationJSON;
-    		$this->fileNator->updateFilePath($this->resvationFilePath);
-    	}
-    	return $json;
-    }
 }
 
-class Reservation
+abstract Class Model
 {
 	function __construct($json)
 	{
 		$this->id = $json['id'];
+	}
+	abstract public static function jsonSchema();
+}
+
+class Reservation extends Model
+{
+	function __construct($json)
+	{
 		$this->depart = $json['depart'];
 		$this->return = $json['return'];
 		
@@ -164,13 +134,12 @@ class Reservation
     }
 }
 
-class User
+class User extends Model
 {
 	function __construct($json)
 	{
 		$this->first = $json['first'];
 		$this->last = $json['last'];
-		$this->id = $json['id'];
 		$this->reservations = $json['reservation'];
 	}
 	public static function jsonSchema() 
@@ -184,5 +153,5 @@ class User
     }
 }
 
-$jsonator = new JSONator('user.json', 'reservation.json');
+$jsonator = new JSONator('user.json', User::jsonSchema());
 $jsonator->printSomeShit();
