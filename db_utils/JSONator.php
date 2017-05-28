@@ -20,7 +20,12 @@ class JSONator
     }
     public function read()
     {
-        return $this->JSON;
+        if(count($this->JSON[0]) != 0)
+        {
+            return $this->JSON;
+        }
+        return false;
+        
     }
     public function write($record)
     {
@@ -71,30 +76,33 @@ class JSONator
 
             $this->fileNator->writeJSONtoFile($this->JSON);
             $this->reloadJSONfromFile();
+            return $this->JSON;
 
         }
         else
         {
             return false;
         }
+
     }
     public function delete($id)
     {
         foreach(array_values($this->JSON) as $i => $val)
         {
+
             if($id == $val['id'])
             {
                 unset($this->JSON[$i]);
                 $this->JSON = array_values($this->JSON);
                 $this->fileNator->writeJSONtoFile($this->JSON);
                 $this->reloadJSONfromFile();
-                
                 return $this->JSON;
             }
         }
         return false;
 
     }
+
     public function testSomething()
     {
         $res = array(
@@ -104,6 +112,7 @@ class JSONator
             );
         var_dump($this->write($res));
     }
+
     public function fetchRecordById($id)
     {
         $this->reloadJSONfromFile();
