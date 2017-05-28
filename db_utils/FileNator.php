@@ -8,6 +8,7 @@ class FileNator
 	public function getJSONfromFile()
 	{
 		$filePath = $this->filePath;
+
 		$file = fopen($filePath, 'r')
     		or exit("Unable to open file ($filePath)");
 

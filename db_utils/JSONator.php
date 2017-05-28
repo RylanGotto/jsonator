@@ -1,8 +1,8 @@
 <?php
 
 include("FileNator.php");
-include("../models/User.php");
-include("../models/Reservation.php");
+
+
 
 
 class JSONator 
@@ -11,8 +11,9 @@ class JSONator
     {
         $this->filePath = $filePath;
         $this->fileNator = new FileNator($filePath);
-        $this->JSON = $this->fileNator->getJSONfromFile();
-        $this->schema = $schema;
+        echo $filePath;
+        // $this->JSON = $this->fileNator->getJSONfromFile();
+        // $this->schema = $schema;
     }
     private function reloadJSONfromFile()
     {
@@ -145,7 +146,3 @@ class JSONator
         return $valid;
     }
 }
-
-
-$jsonator = new JSONator('../collections/reservation.json', Reservation::jsonSchema());
-$jsonator->printSomething();
