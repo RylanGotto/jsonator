@@ -1,5 +1,5 @@
 <?php
 return array(
-	'userCollectionFilePath' => '/../collections/user.json',
-	'reservationFilePath' => '/../collections/reservation.json'
+	'userCollectionFilePath' => dirname(__FILE__) . '/../collections/user.json',
+	'reservationCollectionFilePath' => dirname(__FILE__) . '/../collections/reservation.json'
 );

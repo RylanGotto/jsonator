@@ -11,17 +11,16 @@ class JSONator
     {
         $this->filePath = $filePath;
         $this->fileNator = new FileNator($filePath);
-        echo $filePath;
-        // $this->JSON = $this->fileNator->getJSONfromFile();
-        // $this->schema = $schema;
+        $this->JSON = $this->fileNator->getJSONfromFile();
+        $this->schema = $schema;
     }
     private function reloadJSONfromFile()
     {
         $this->JSON = $this->fileNator->getJSONfromFile();
     }
-    public function read($type)
+    public function read()
     {
-        return $json;
+        return $this->JSON;
     }
     public function write($record)
     {
@@ -96,7 +95,7 @@ class JSONator
         return false;
 
     }
-    public function printSomething()
+    public function testSomething()
     {
         $res = array(
             "depart" => "string",

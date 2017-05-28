@@ -9,11 +9,13 @@ abstract class Controller{
     }
     protected function requestHandler($request){
         if ($request->method == 'GET'){
+            
                 //check to see if path contains more than one level, if only one level exists trigger getAll, if more than one level is present determine if path is valid and trigger correct response
                 $path_count = count($request->path_info);
                 if ($path_count == 1){ 
                     if(count($request->parameters) == 0){
-                        //check if parameters exist, if no parameters return all of the records LIMIT 1000
+                     
+                        //check if parameters exist, if no parameters return all of the records
                         $this->getAll($request);
                     }else{
                         graceful404();
@@ -23,16 +25,19 @@ abstract class Controller{
                 }elseif($path_count >= 3){
                     graceful404();                        
                 }              
+            }else if($request->method == 'POST'){
+                $this->addNewRecord($request);
+            }else if($request->method == 'PUT'){
+                $this->updateRecordById($request);
+            }else if($request->method == 'DELETE'){
+                $this->deleteRecordById();
             }else{
                 graceful404('Method type is not supported');
-            }   
+            }
     }  
-    //get all
-    public function getAll($request){
-        echo 'get all';
-    }
-    //get by id
-    public function getById($request){
-        echo 'get by id';
-    }
+    public function getAll($request){}
+    public function getById($request){}
+    public function deleteRecordById($request){}
+    public function updateRecordById($request){}
+    public function addNewRecord($record){}
 }

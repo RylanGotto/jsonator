@@ -3,11 +3,9 @@ include('Request.php');
 
 function handleRequest(){
     $request = new Request();
-
     $controller_name = ucfirst($request->path_info[0] . 'Controller');
 
     if (apiAutoload($controller_name)) {
-
         $controller = new $controller_name($request);
     }else{
         graceful404();
