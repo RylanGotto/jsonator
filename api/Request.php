@@ -9,13 +9,6 @@ class Request {
         header("Access-Control-Allow-Orgin: *");
         header("Access-Control-Allow-Methods: *");
 
-        //Get PUT DATA
-        $putfp = fopen('php://input', 'r');
-        $putdata = '';
-        while($data = fread($putfp, 1024))
-            $putdata .= $data;
-        fclose($putfp);
-
         $this->method = $_SERVER['REQUEST_METHOD'];
 
         if($this->method == 'PUT')

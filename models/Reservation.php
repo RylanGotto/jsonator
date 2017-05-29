@@ -13,8 +13,7 @@ class Reservation extends Model
 	{
         return array(
         	"depart" => "string",
-        	"return" => "string",
-        	"reservation" => "array"
+        	"return" => "string"
         	);
     }
 }
