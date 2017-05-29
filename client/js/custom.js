@@ -1,4 +1,28 @@
+function initDateTimePickers()
+{
+	        $('#datetimepicker6').datetimepicker();
+            $('#datetimepicker7').datetimepicker({
+                useCurrent: false //Important! See issue #1075
+            });
+            $("#datetimepicker6").on("dp.change", function (e) {
+                $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+            });
+            $("#datetimepicker7").on("dp.change", function (e) {
+                $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+            });
 
+
+            $('#datetimepicker8').datetimepicker();
+            $('#datetimepicker9').datetimepicker({
+                useCurrent: false //Important! See issue #1075
+            });
+            $("#datetimepicker8").on("dp.change", function (e) {
+                $('#datetimepicker9').data("DateTimePicker").minDate(e.date);
+            });
+            $("#datetimepicker9").on("dp.change", function (e) {
+                $('#datetimepicker8').data("DateTimePicker").maxDate(e.date);
+            });
+}
 function showSignUpForm()
 {
 	$('.create').on('click', function(){
@@ -25,10 +49,10 @@ function signUpNewMember()
 		    'processData': false,
 		    'contentType': 'application/json',
 			'success':function(data){
-				$('.info-notification').html('<h2>' + 'Your account has been registered' + '</h2>');
+				$('.info-notification').html('<h2>' + 'Your account has been registered.' + '</h2>');
 			},
 			'error':function(){
-				$('.info-notification').html('<h2>' + 'We could not register your account' + '</h2>');
+				$('.info-notification').html('<h2>' + 'We could not register your account.' + '</h2>');
 			}
 		});
 
@@ -103,7 +127,7 @@ function createReservation()
 				userInfo['reservations'].push(id);
 				localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
-				var payload2 = [{"first":userInfo['first'], "last":userInfo['last'], "reservations":userInfo['reservations'], "email":userInfo['email']}]
+				var payload2 = [{"first":userInfo['first'], "last":userInfo['last'], "reservations":userInfo['reservations'], "email":userInfo['email']}];
 
 					$.ajax('http://localhost/json-nator/api.php/user/' + userID,{
 					    'data':  JSON.stringify(payload2),
@@ -111,11 +135,11 @@ function createReservation()
 					    'processData': false,
 					    'contentType': 'application/json',
 						'success':function(data){
-							$('.info-notification').html('<h2>' + 'Your Reservation has been made' + '</h2>');
+							$('.info-notification').html('<h2>' + 'Your Reservation has been made.' + '</h2>');
 
 						},
 						'error':function(){
-							$('.info-notification').html('<h2>' + 'Something went wrong, we could not save your reservation' + '</h2>');
+							$('.info-notification').html('<h2>' + 'Something went wrong, we could not save your reservation.' + '</h2>');
 						}
 					});
 
@@ -147,24 +171,37 @@ function updateReservation()
 		$('#updateReservation').on('click', function(e){
 			e.preventDefault();
 			
-			var depart = $('#datetimepicker8 input').val();
-			var returnDate = $('#datetimepicker9 input').val();
-			var id = $('#idToUpdate').val();
-			var payload = [{"depart":depart, "return":returnDate}];
 
-			$.ajax('http://localhost/json-nator/api.php/reservation/' + id,{
-			    'data': JSON.stringify(payload) ,
-			    'type': 'PUT',
-			    'processData': false,
-			    'contentType': 'application/json',
-				'success':function(data){
-					$('.info-notification').html('<h2>' + 'Your reservation has been updated.' + '</h2>');
-					getReservations();
-				},
-				'error':function(){
-					$('.info-notification').html('<h2>' + 'We could not update that reservation.' + '</h2>');
-				}
-			});
+			var id = $('#idToUpdate').val();
+
+			var userInfo = localStorage.getItem('userInfo');
+			userInfo = JSON.parse(userInfo);
+
+			var index = userInfo['reservations'].indexOf(parseInt(id, 10));
+
+			if(index > -1){
+				var depart = $('#datetimepicker8 input').val();
+				var returnDate = $('#datetimepicker9 input').val();
+				var payload = [{"depart":depart, "return":returnDate}];
+
+				$.ajax('http://localhost/json-nator/api.php/reservation/' + id,{
+				    'data': JSON.stringify(payload) ,
+				    'type': 'PUT',
+				    'processData': false,
+				    'contentType': 'application/json',
+					'success':function(data){
+						$('.info-notification').html('<h2>' + 'Your reservation has been updated.' + '</h2>');
+						getReservations();
+					},
+					'error':function(){
+						$('.info-notification').html('<h2>' + 'We could not update that reservation.' + '</h2>');
+					}
+				});
+			}else{
+				$('.info-notification').html('<h2>' + 'We could not update that reservation.' + '</h2>');
+			}
+
+
 
 	});
 }
@@ -196,6 +233,7 @@ function deleteReservation()
 			'success':function(data){
 				
 				$('.info-notification').html('<h2>' + 'Record has been deleted.' + '</h2>');
+
 				var userInfo = localStorage.getItem('userInfo');
 				userInfo = JSON.parse(userInfo);
 
@@ -282,7 +320,7 @@ function getReservations()
 
 function init()
 {
-	
+	initDateTimePickers();
 	signUpNewMember();
 	signIn();
 	showSignUpForm();
