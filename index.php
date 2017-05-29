@@ -1,2 +1,2 @@
 <?php 
-echo "Welcome to JSONator v1.0";
+header('Location: '. 'client/index.html');

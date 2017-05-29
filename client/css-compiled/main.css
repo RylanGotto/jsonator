@@ -1,5 +1,21 @@
-body h1 {
+body h2 {
   color: green;
   font-size: 2rem; }
+body .form-signup {
+  display: none; }
+body .userInfoArea {
+  display: none; }
+body .create-reservation {
+  display: none; }
+body .update-reservation {
+  display: none; }
+body .delete-reservation {
+  display: none; }
+body .reservations {
+  display: none; }
+body ul {
+  padding: 0; }
+body li {
+  display: inline-block; }
 
 /*# sourceMappingURL=main.css.map */

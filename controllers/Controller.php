@@ -50,23 +50,18 @@ abstract class Controller{
                 graceful404('Method type is not supported');
             }
     }
-    public function failRecordError($errorMsg)
-    {
-        return array(
-                "error" => $errorMsg
-            );
-    }
     public function renderResponse($data)
     {
         $response;
         if($data){
             $response = $data;
+            $this->render($response);
         }
         else
         {
-            $response = $this->failRecordError('Incorrect Format or No records exist.');
+            graceful404('Incorrect Format or No records exist.');
         }
-        $this->render($response);
+        
     }
     public function getAll($request){}
     public function getById($id, $request){}

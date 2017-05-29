@@ -9,11 +9,13 @@ class User extends Model
 	{
 		$this->first = $json['first'];
 		$this->last = $json['last'];
+		$this->email = $json['email'];
 		$this->reservations = $json['reservation'];
 	}
 	public static function jsonSchema() 
 	{
         return array(
+        	"email" => "string",
         	"first" => "string",
         	"last" => "string",
         	"reservations" => "array"
