@@ -24,10 +24,16 @@ class FileNator
 	}
 	public function writeJSONtoFile($json)
 	{
+
 		$filePath = $this->filePath;
 		$file = fopen($filePath, 'w')
 		    	or exit("Unable to open file ($filePath)");
-		fwrite($file, json_encode($json));
+		if(count($json) == 0){
+			fwrite($file, '[{}]');
+		}else{
+			fwrite($file, json_encode($json));
+		}
+		
 		fclose($file);
 	}
 }

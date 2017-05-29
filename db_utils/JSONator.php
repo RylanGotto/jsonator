@@ -53,26 +53,31 @@ class JSONator
             return false;
         }
         $this->reloadJSONfromFile(); //reload new collection are return.
-        return $this->JSON;
+        return end($this->JSON);
     }
     public function update($id, $record)
     {
         $indexToUpdate;
         $foundId = true;
+
+
+
         if($this->validateJSON($record))
         {
             $this->reloadJSONfromFile();
 
             foreach(array_values($this->JSON) as $i => $val) //find record in collection to update.
             {
-                echo $i;
-                if($id == $val['id']) //if id is found update values of record found in collection.
+                if(intval($id) == intval($val['id'])) //if id is found update values of record found in collection.
                 {
 
                     foreach($record as $key => $val1) 
                     {
+
                         $this->JSON[$i][$key] = $val1;  
                     }
+                    $foundId = true;
+                    break;
                 }else{
                     $foundId = false;
                 }

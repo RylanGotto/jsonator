@@ -19,7 +19,13 @@ body{
 		display: none;
 	}
 	.reservations{
+		width:100%;
 		display: none;
+		ul{
+		}
+		.col-md-5{
+			padding: 0;
+		}
 	}
 	ul{
 		padding:0;

@@ -12,7 +12,10 @@ body .update-reservation {
 body .delete-reservation {
   display: none; }
 body .reservations {
+  width: 100%;
   display: none; }
+  body .reservations .col-md-5 {
+    padding: 0; }
 body ul {
   padding: 0; }
 body li {

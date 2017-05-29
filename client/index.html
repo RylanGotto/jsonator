@@ -13,13 +13,28 @@
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css-compiled/main.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 
   </head>
 
   <body>
 
     <div class="container">
+
+    <div class="userInfoArea ">
+      <h2></h2>
+      <div class="userControlArea">
+        <ul>
+          <li><button id="view" class="btn btn-lg btn-primary btn-block " >View Reservations</button></li>
+          <li><button id="create" class="btn btn-lg btn-primary btn-block " >Create Reservation</button></li>
+          <li><button id="update" class="btn btn-lg btn-primary btn-block " >Update Reservation</button></li>
+          <li><button id="delete" class="btn btn-lg btn-primary btn-block " >Delete Reservation</button></li>
+        </ul>
+      </div>  
+    </div>
+
+
     <div class="control-container">
       <form class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
@@ -50,66 +65,131 @@
         <button class="btn btn-lg btn-primary btn-block signup" >Sign up</button>
       </form>
 
-    <div class="userInfoArea">
-      <h2></h2>
-      <div class="userControlArea">
-        <ul>
-          <li><button id="view" class="btn btn-lg btn-primary btn-block " >View Reservations</button></li>
-          <li><button id="create" class="btn btn-lg btn-primary btn-block " >Create Reservation</button></li>
-          <li><button id="update" class="btn btn-lg btn-primary btn-block " >Update Reservation</button></li>
-          <li><button id="delete" class="btn btn-lg btn-primary btn-block " >Delete Reservation</button></li>
-        </ul>
-      </div>  
+
+
+    <div class="create-reservation">
+      <div class='col-md-5'>
+          <div class="form-group">
+          <h4>Depart</h4>
+              <div class='input-group date' id='datetimepicker6'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+          </div>
+      </div>
+      <div class='col-md-5'>
+          <div class="form-group">
+          <h4>Return</h4>
+              <div class='input-group date' id='datetimepicker7'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+              </div>
+      </div>
+      <div class='col-md-5'>
+          <div class="form-group">
+      <button class="btn btn-primary" id="createReservation">Submit Reservation</button>
+          </div>
+      </div>
     </div>
 
-    <form class="create-reservation">
-      <h2 class="form-signin-heading">Create Reservation</h2>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail2" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputFname" class="sr-only">First Name</label>
-      <input type="text" id="inputFname" class="form-control" placeholder="First name" required autofocus>
-      <label for="inputEmail" class="sr-only">Last Name</label>
-      <input type="text" id="inputLname" class="form-control" placeholder="Last name" required autofocus>
-      <button class="btn btn-lg btn-primary btn-block signup" >Sign up</button>
-    </form>
-
     <form class="update-reservation">
-      <h2 class="form-signin-heading">Update Reservation</h2>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail2" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputFname" class="sr-only">First Name</label>
-      <input type="text" id="inputFname" class="form-control" placeholder="First name" required autofocus>
-      <label for="inputEmail" class="sr-only">Last Name</label>
-      <input type="text" id="inputLname" class="form-control" placeholder="Last name" required autofocus>
-      <button class="btn btn-lg btn-primary btn-block signup" >Sign up</button>
+      <div class='col-md-5'>
+          <div class="form-group">
+              <h4>Depart</h4>
+              <div class='input-group date'  id='datetimepicker8'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+          </div>
+      </div>
+      <div class='col-md-5'>
+          <div class="form-group">
+              <h4>Return</h4>
+              <div class='input-group date' id='datetimepicker9'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+              </div>
+      </div>
+      <div class='col-md-5'>
+        <h4>ID</h4>
+        <div class="form-group">
+          <input type="number" id="idToUpdate" />
+          <button class="btn btn-primary " id="updateReservation">Update Reservation</button>
+        </div>
+      </div>
     </form>
 
     <form class="delete-reservation">
-      <h2 class="form-signin-heading">Delete Reservation</h2>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail2" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputFname" class="sr-only">First Name</label>
-      <input type="text" id="inputFname" class="form-control" placeholder="First name" required autofocus>
-      <label for="inputEmail" class="sr-only">Last Name</label>
-      <input type="text" id="inputLname" class="form-control" placeholder="Last name" required autofocus>
-      <button class="btn btn-lg btn-primary btn-block signup" >Sign up</button>
+      <h2>Enter ID of Reservation to delete.</h2>
+      <input type="number" id="idToDelete" />
+      <button class="btn btn-primary" id="deleteReservation">Delete Reservation</button>
     </form>
 
-    <div class="reservations">
-      <ul>
-        <li><h4>Depart</h4></li>
-        <li><h4>Return</h4></li>
-      </ul>
+    <div class="reservations">        
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Depart</th>
+        <th>Return</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+</div>
+    <div class="info-notification"></div>
     </div>
 
-    <div class="info-notification"></div>
+
     </div> <!-- /container -->
 
 
   </body>
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="js/custom.js" ></script>
+    <script type="text/javascript" src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker6').datetimepicker();
+            $('#datetimepicker7').datetimepicker({
+                useCurrent: false //Important! See issue #1075
+            });
+            $("#datetimepicker6").on("dp.change", function (e) {
+                $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+            });
+            $("#datetimepicker7").on("dp.change", function (e) {
+                $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+            });
+
+
+            $('#datetimepicker8').datetimepicker();
+            $('#datetimepicker9').datetimepicker({
+                useCurrent: false //Important! See issue #1075
+            });
+            $("#datetimepicker8").on("dp.change", function (e) {
+                $('#datetimepicker9').data("DateTimePicker").minDate(e.date);
+            });
+            $("#datetimepicker9").on("dp.change", function (e) {
+                $('#datetimepicker8').data("DateTimePicker").maxDate(e.date);
+            });
+        });
+    </script>
 </html>
