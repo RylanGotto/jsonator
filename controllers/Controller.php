@@ -27,10 +27,18 @@ abstract class Controller{
                 }elseif($path_count >= 3){
                     graceful404();                        
                 }              
+
             }else if($request->method == 'POST'){
                 $this->addNewRecord($request);
+
             }else if($request->method == 'PUT'){
-                $this->updateRecordById($request);
+                if($path_count == 2 && preg_match('/^[0-9]{1,6}+$/', $request->path_info[1])){ //path should contain at most 2 levels, level two should only contain numeric characters 
+                    $recordId = $request->path_info[1];
+                    $this->updateRecordById($recordId, $request);
+                }else{
+                    graceful404();
+                }
+                
             }else if($request->method == 'DELETE'){
                 if($path_count == 2 && preg_match('/^[0-9]{1,6}+$/', $request->path_info[1])){ //path should contain at most 2 levels, level two should only contain numeric characters 
                     $recordId = $request->path_info[1];
@@ -56,7 +64,7 @@ abstract class Controller{
         }
         else
         {
-            $response = $this->failRecordError('No records exist.');
+            $response = $this->failRecordError('Incorrect Format or No records exist.');
         }
         $this->render($response);
     }
@@ -64,5 +72,5 @@ abstract class Controller{
     public function getById($id, $request){}
     public function deleteRecordById($id, $request){}
     public function updateRecordById($id, $request){}
-    public function addNewRecord($record, $request){}
+    public function addNewRecord($request){}
 }

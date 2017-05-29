@@ -27,7 +27,7 @@ class JSONator
         return false;
         
     }
-    public function write($record)
+    public function create($record)
     {
         if($this->validateJSON($record))
         {
@@ -58,23 +58,34 @@ class JSONator
     public function update($id, $record)
     {
         $indexToUpdate;
+        $foundId = true;
         if($this->validateJSON($record))
         {
             $this->reloadJSONfromFile();
 
             foreach(array_values($this->JSON) as $i => $val) //find record in collection to update.
             {
+                echo $i;
                 if($id == $val['id']) //if id is found update values of record found in collection.
                 {
+
                     foreach($record as $key => $val1) 
                     {
-                        $this->JSON[$i][$key] = $val1;
-                        break;
+                        $this->JSON[$i][$key] = $val1;  
                     }
+                }else{
+                    $foundId = false;
                 }
             }
+            if(!$foundId)
+            {
+                return false;
+            }
+
+            
 
             $this->fileNator->writeJSONtoFile($this->JSON);
+
             $this->reloadJSONfromFile();
             return $this->JSON;
 
@@ -135,6 +146,7 @@ class JSONator
         $schema = $this->schema;
         if(is_array($json))
         {
+
             foreach($json as $key => $val)
             {
                 if(isset($schema[$key]))

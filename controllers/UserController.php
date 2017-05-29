@@ -11,7 +11,6 @@ class UserController extends Controller{
 		$this->userDB = new JSONator($configs['userCollectionFilePath'], User::jsonSchema());  
 		$this->requestHandler($request);
     }
-
     public function getAll($request)
     {
     	$this->renderResponse($this->userDB->read());
@@ -24,7 +23,17 @@ class UserController extends Controller{
     {
     	$this->renderResponse($this->userDB->delete($id) );
     }
-    public function updateRecordById($id, $request){}
-    public function addNewRecord($record, $request){}
+    public function updateRecordById($id, $request)
+    {
+    	$data = json_decode($request->put_data, true)[0];
+    	$data = $this->userDB->update($id, $data);
+    	$this->renderResponse($data);
+    }
+    public function addNewRecord($request)
+    {   
+        $data = json_decode($request->post_data, true)[0];
+        $data = $this->userDB->create($data);
+        $this->renderResponse($data);
+    }
 }
 ?>

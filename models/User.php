@@ -16,7 +16,7 @@ class User extends Model
         return array(
         	"first" => "string",
         	"last" => "string",
-        	"reservation" => "array"
+        	"reservations" => "array"
         	);
     }
 }
