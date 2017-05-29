@@ -6,6 +6,7 @@ class Request {
     public $put_data;
     public $post_data;
     public function __construct() {
+        
         header("Access-Control-Allow-Orgin: *");
         header("Access-Control-Allow-Methods: *");
 
