@@ -12,6 +12,6 @@ final class FileNatorTest extends TestCase
     	$configs = include(dirname(__FILE__) . '/../../db_utils/settings.php');
         $FileNator = new FileNator($configs['userCollectionFilePathTest']);;
         $expected = array(array("first"=>"Rylan", "last"=>"Gotto","reservations"=>[1],"id"=>1,"email"=>"rgotto2@gmail.com"));
-        $this->assertEquals($expected, $FileNator);
+        $this->assertEquals($expected, $FileNator->getJSONfromFile());
     }
 }
