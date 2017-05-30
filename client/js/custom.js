@@ -90,6 +90,7 @@ function showUserControlsOnLogin(data)
 {
 	var userInfo = localStorage.getItem('userInfo', JSON.stringify(data));
 	var userInfo = JSON.parse(userInfo);
+	
 	$('.userInfoArea h2').html('<h2>Welcome ' + userInfo['first'] + ' ' + userInfo['last'] + '</h2>');
 	$('.control-container').slideUp(function(){
 		$('body .userInfoArea').slideDown();
@@ -109,6 +110,7 @@ function createReservation()
 {
 		$('#createReservation').on('click', function(e){
 			e.preventDefault();
+
 			var depart = $('#datetimepicker6 input').val();
 			var returnDate = $('#datetimepicker7 input').val();
 
@@ -121,10 +123,12 @@ function createReservation()
 		    'contentType': 'application/json',
 			'success':function(data){
 				id = data['id'];
+
 				var userInfo = localStorage.getItem('userInfo');
 				userInfo = JSON.parse(userInfo);
 				userID = userInfo['id'];
 				userInfo['reservations'].push(id);
+
 				localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
 				var payload2 = [{"first":userInfo['first'], "last":userInfo['last'], "reservations":userInfo['reservations'], "email":userInfo['email']}];
