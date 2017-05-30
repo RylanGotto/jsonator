@@ -7,7 +7,7 @@ require_once(dirname(__FILE__) . '/../../db_utils/FileNator.php');
 final class FileNatorTest extends TestCase
 {
 
-    public function testRead()
+    public function testGetJSONfromFile()
     {
     	$configs = include(dirname(__FILE__) . '/../../db_utils/settings.php');
         $FileNator = new FileNator($configs['userCollectionFilePathTest']);;
