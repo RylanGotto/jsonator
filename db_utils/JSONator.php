@@ -92,7 +92,7 @@ class JSONator
             $this->fileNator->writeJSONtoFile($this->JSON);
 
             $this->reloadJSONfromFile();
-            return $this->JSON;
+            return end($this->JSON);
 
         }
         else
