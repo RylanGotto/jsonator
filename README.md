@@ -1,6 +1,6 @@
-# jsonator
+# JSONator
 
-JSOnator is a micro MVC server and lightweight noSQL document storage system with no dependancies. 
+JSONator is a micro MVC server and lightweight noSQL document storage system with no dependancies. 
 The purpose of this project is to demonstrate different skills, 
 and methodlogies in order to create a REST service from scratch.
 The DBMS is complete with schema validation and has been implemneted in a noSQL style. 
