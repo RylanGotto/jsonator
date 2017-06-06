@@ -1,12 +1,37 @@
 <?php
+/**
+* Abstract Controller determines which part of the REST standard will be invoked based on incoming HTTP method type. 
+* Currently GET POST PUT DELETE are supported.
+*
+* @author Rylan Gotto <rgotto2@gmail.com>
+*/
 abstract class Controller{
 	private $request;
-	public function __construct($request) {}
+	
+    public function __construct($request) {}
+
+    /**
+     * Render HTTP response back to client
+     * @param Array $content Valid array that will be converted to JSON and delievered via the HTTP response.
+     */
     protected function render($content) {
         header('Content-Type: application/json; charset=utf8');
         echo json_encode($content);
         return true;
     }
+
+    /**
+     * Determines if HTTP method is allow, and determine if path is valid.
+     * Correct combination of method and path is required for a valid request. 
+     * Endpoints exist as followed:
+     * http://localhost/jsonator/api.php/login - POST
+     * http://localhost/jsonator/api.php/user - POST GET
+     * http://localhost/jsonator/api.php/user/$userID - GET PUT
+     * http://localhost/jsonator/api.php/reservation/$reservationID - POST PUT DELETE
+     * http://localhost/jsonator/api.php/reservation - GET
+     *
+     * @param Request $request The Request that contains the method and data required to process a response.
+     */
     protected function requestHandler($request){
         $path_count = count($request->path_info);
         if ($request->method == 'GET'){
@@ -50,6 +75,11 @@ abstract class Controller{
                 graceful404('Method type is not supported');
             }
     }
+
+    /**
+     * Check to see if $data exists
+     * @param Array $context valid array that will be converted to JSON and delievered via the HTTP response.
+     */
     public function renderResponse($data)
     {
         $response;
@@ -63,9 +93,11 @@ abstract class Controller{
         }
         
     }
+
     public function getAll($request){}
     public function getById($id, $request){}
     public function deleteRecordById($id, $request){}
     public function updateRecordById($id, $request){}
     public function addNewRecord($request){}
+
 }

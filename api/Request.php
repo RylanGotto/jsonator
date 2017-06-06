@@ -1,10 +1,12 @@
 <?php
+
 class Request {
     public $method;
     public $path_info;
     public $parameters;
     public $put_data;
     public $post_data;
+
     public function __construct() {
         
         header("Access-Control-Allow-Orgin: *");
@@ -27,6 +29,7 @@ class Request {
             parse_str($_SERVER['QUERY_STRING'], $this->parameters);
         }
     }
+
     public function getRawDataFromInput()
     {
             $fp = fopen('php://input', 'r');
@@ -37,4 +40,5 @@ class Request {
 
             return $pdata;
     }
+
 }

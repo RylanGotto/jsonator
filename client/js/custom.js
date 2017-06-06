@@ -43,7 +43,7 @@ function signUpNewMember()
 		var email = $('#inputEmail2').val();
 		var payload = [{"first":first,"last":last,"reservations":[], "email":email}];
 
-		$.ajax('http://localhost/json-nator/api.php/user',{
+		$.ajax('http://localhost/jsonator/api.php/user',{
 		    'data': JSON.stringify(payload) ,
 		    'type': 'POST',
 		    'processData': false,
@@ -67,18 +67,19 @@ function signIn()
 		var email = $('#inputEmail').val();
 		var payload = [{"email":email}];
 
-		$.ajax('http://localhost/json-nator/api.php/login',{
+		$.ajax('http://localhost/jsonator/api.php/login',{
 		    'data': JSON.stringify(payload) ,
 		    'type': 'POST',
 		    'processData': false,
-		    'contentType': 'application/json',
+		    'contentType': 'json',
 			'success':function(data){
-
+				console.log(1)
 				localStorage.setItem('userInfo', JSON.stringify(data));
 				showUserControlsOnLogin(data);
 
 			},
 			'error':function(){
+				console.log(2)
 				$('.info-notification').html('<h2>' + 'We could not sign you in.' + '</h2>');
 			}
 		});
@@ -116,7 +117,7 @@ function createReservation()
 
 			var payload = [{"depart":depart, "return":returnDate}];
 
-		$.ajax('http://localhost/json-nator/api.php/reservation',{
+		$.ajax('http://localhost/jsonator/api.php/reservation',{
 		    'data': JSON.stringify(payload) ,
 		    'type': 'POST',
 		    'processData': false,
@@ -133,7 +134,7 @@ function createReservation()
 
 				var payload2 = [{"first":userInfo['first'], "last":userInfo['last'], "reservations":userInfo['reservations'], "email":userInfo['email']}];
 
-					$.ajax('http://localhost/json-nator/api.php/user/' + userID,{
+					$.ajax('http://localhost/jsonator/api.php/user/' + userID,{
 					    'data':  JSON.stringify(payload2),
 					    'type': 'PUT',
 					    'processData': false,
@@ -188,7 +189,7 @@ function updateReservation()
 				var returnDate = $('#datetimepicker9 input').val();
 				var payload = [{"depart":depart, "return":returnDate}];
 
-				$.ajax('http://localhost/json-nator/api.php/reservation/' + id,{
+				$.ajax('http://localhost/jsonator/api.php/reservation/' + id,{
 				    'data': JSON.stringify(payload) ,
 				    'type': 'PUT',
 				    'processData': false,
@@ -230,7 +231,7 @@ function deleteReservation()
 
 		var reservationID = $('#idToDelete').val();
 
-		$.ajax('http://localhost/json-nator/api.php/reservation/' + reservationID,{
+		$.ajax('http://localhost/jsonator/api.php/reservation/' + reservationID,{
 		    'type': 'DELETE',
 		    'processData': false,
 		    'contentType': 'application/json',
@@ -249,7 +250,7 @@ function deleteReservation()
 
     				var payload2 = [{"first":userInfo['first'], "last":userInfo['last'], "reservations":userInfo['reservations'], "email":userInfo['email']}]
 
-    				$.ajax('http://localhost/json-nator/api.php/user/' + userInfo['id'],{
+    				$.ajax('http://localhost/jsonator/api.php/user/' + userInfo['id'],{
 					    'data': JSON.stringify(payload2) ,
 					    'type': 'PUT',
 					    'processData': false,
@@ -287,7 +288,7 @@ function getReservations()
 		var userID = JSON.parse(localStorage.getItem('userInfo'))['id'];
 		$('tbody').empty();
 
-		$.ajax('http://localhost/json-nator/api.php/user/' + userID,{
+		$.ajax('http://localhost/jsonator/api.php/user/' + userID,{
 		    'type': 'GET',
 		    'processData': false,
 		    'contentType': 'application/json',
@@ -297,7 +298,7 @@ function getReservations()
 				for(var i = 0; i < indexes; i++){
 					reservationID = data['reservations'][i];
 
-					$.ajax('http://localhost/json-nator/api.php/reservation/' + reservationID,{
+					$.ajax('http://localhost/jsonator/api.php/reservation/' + reservationID,{
 					    'type': 'GET',
 					    'processData': false,
 					    'contentType': 'application/json',
