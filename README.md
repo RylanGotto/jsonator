@@ -5,7 +5,7 @@ The purpose of this project is to demonstrate different skills,
 and methodlogies in order to create a REST service from scratch.
 The DBMS is complete with schema validation and has been implemneted in a noSQL style. 
 The DBMS currently is only offering the most basic of CRUD controls any references have to be done manually.
-Addtionally tests were implmeneted using phpUnit. Give execution permissions to run_tests.sh and run accordingly.
+Addtionally tests were implmeneted using phpUnit. Give execution permissions and make sure phpunit is in path to run_tests.sh and run ./run_tests.sh
 
 The project is easily deployed due to there being no dependancies and all files were authored by me (except /client/bower_components). 
 Simply drop into any apache or nginx server and test with the given client or Postman.
