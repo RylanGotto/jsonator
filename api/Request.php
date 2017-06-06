@@ -1,12 +1,20 @@
 <?php
-
+/**
+* Request encapsulates the incoming HTTP request
+*
+* @author Rylan Gotto <rgotto2@gmail.com>
+*/
 class Request {
+
     public $method;
     public $path_info;
     public $parameters;
     public $put_data;
     public $post_data;
 
+    /**
+     * Construct Request Object and allow CORS
+     */
     public function __construct() {
         
         header("Access-Control-Allow-Orgin: *");
@@ -30,6 +38,9 @@ class Request {
         }
     }
 
+    /**
+     * Get RAW post or put data
+     */
     public function getRawDataFromInput()
     {
             $fp = fopen('php://input', 'r');
