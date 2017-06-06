@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-include_once('HttpRequest.php');
 
 final class LoginControllerTest extends TestCase
 {
