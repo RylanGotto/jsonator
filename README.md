@@ -1,4 +1,4 @@
-#JSONator
+# JSONator
 
 JSONator is a micro MVC server and lightweight noSQL document storage system with no dependencies. The purpose of this project is to demonstrate different skills, and methodologies in order to create a REST service from scratch. The DBMS is complete with schema validation and has been implemented in a noSQL style. The DBMS currently is only offering the most basic of CRUD controls any references have to be done manually. Additionally tests were implemented using phpUnit. Give execution permissions and make sure phpunit is in path to run_tests.sh and run ./run_tests.sh
  
